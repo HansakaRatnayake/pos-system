@@ -1,10 +1,10 @@
-package com.codebuddy.pos_system;
+package com.project.possystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PosSystemApplicationTests {
+class PossystemApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,13 +1,13 @@
-package com.codebuddy.pos_system;
+package com.project.possystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PosSystemApplication {
+public class PossystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PosSystemApplication.class, args);
+		SpringApplication.run(PossystemApplication.class, args);
 	}
 
 }
