@@ -18,4 +18,5 @@ public class ItemDTO {
     private BigDecimal price;
     private Category category;
     private String code;
+    private String photo;
 }

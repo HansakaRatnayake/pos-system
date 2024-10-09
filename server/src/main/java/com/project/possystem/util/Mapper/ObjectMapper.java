@@ -1,13 +1,7 @@
 package com.project.possystem.util.Mapper;
 
-import com.project.possystem.dto.ItemDTO;
-import com.project.possystem.dto.RoleDTO;
-import com.project.possystem.dto.UserDTO;
-import com.project.possystem.dto.UserStatusDTO;
-import com.project.possystem.entity.Item;
-import com.project.possystem.entity.Role;
-import com.project.possystem.entity.User;
-import com.project.possystem.entity.Userstatus;
+import com.project.possystem.dto.*;
+import com.project.possystem.entity.*;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -26,4 +20,8 @@ public interface ObjectMapper {
     List<ItemDTO> itemListToDtoList(List<Item> items);
 
     Item itemDtoToItem(ItemDTO itemDTO);
+
+    List<CategoryDTO> categoryListToDtoList(List<Category> categories);
+
+    Category categoryDtoToCategory(CategoryDTO categoryDTO);
 }
