@@ -1,22 +1,21 @@
 package com.project.possystem.dto;
 
-import com.project.possystem.entity.Category;
+import com.project.possystem.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemDTO {
+public class StockDTO {
     private Integer id;
-    private String name;
-    private BigDecimal price;
-    private Category category;
-    private String code;
-    private byte[] photo;
+    private BigDecimal quentity;
+    private LocalDate lastupdated;
+    private Item item;
 }

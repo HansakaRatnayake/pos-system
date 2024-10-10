@@ -24,4 +24,8 @@ public interface ObjectMapper {
     List<CategoryDTO> categoryListToDtoList(List<Category> categories);
 
     Category categoryDtoToCategory(CategoryDTO categoryDTO);
+
+    List<StockDTO> stockListToDtoList(List<Stock> stocks);
+
+    Stock stockDtoToStock(StockDTO stockDTO);
 }

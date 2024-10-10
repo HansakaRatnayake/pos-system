@@ -1,10 +1,13 @@
 package com.project.possystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,8 +32,11 @@ public class Item {
     @Column(name = "code", length = 45)
     private String code;
 
-    @Lob
     @Column(name = "photo")
-    private String photo;
+    private byte[] photo;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "item")
+    private Set<Stock> stocks = new LinkedHashSet<>();
 
 }
