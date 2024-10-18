@@ -1,0 +1,148 @@
+.nav-bar{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+
+
+}
+
+.middle-outer> ul{
+    list-style: none;
+    width: auto;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+}
+
+.middle-outer > ul > li{
+    width: 100px;
+    height: auto;
+    padding: 5px 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white!important;
+}
+
+.middle-outer ul li a {
+    text-decoration: none;  
+    color: rgb(109, 103, 103);          
+    /* font-size: 16px; */
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .middle-outer ul li a:hover{
+    color: rgb(52, 52, 255);
+    cursor: pointer;
+  }
+
+.middle-outer > ul > li:hover{
+    
+    background-color: rgb(229, 242, 255);
+    
+}
+
+.nav-bar-outer{
+   
+    width: 100vw;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    /* border-bottom: 1px rgb(168, 168, 168) solid; */
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
+}
+
+.avatar-outer{
+    width: 40px;
+    height: 40px;
+    background-color: rgb(226, 233, 255);
+    border-radius: 50px;
+}
+
+.logo-outer{
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-outer span{
+    font-size: 20px;
+    color: rgb(52, 52, 255);
+    font-weight: 600;
+    font-style: italic;
+
+
+}
+
+.logo-outer span span{
+    color: rgb(118, 118, 128);
+    font-weight: 600;
+    font-size: 24px;
+}
+
+
+.left-outer,.middle-outer,.right-outer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px red solid; */
+}
+
+.right-outer{
+    justify-content: flex-end;
+    gap: 15px;
+
+}
+.left-outer{
+    justify-content: flex-start;
+}
+
+.status-outer{
+    width: auto;
+    height: auto;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background-color:#a6d3fd;
+    color: #2b96fa;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+}
+
+.user-outer{
+   
+    /* border: 1px red solid; */
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: end;
+    line-height: 10px;
+}
+
+.user-outer span{
+    font-size: 14px;
+}
+
+.user-outer p{
+    font-size: 12px;
+}

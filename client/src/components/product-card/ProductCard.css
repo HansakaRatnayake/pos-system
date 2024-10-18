@@ -1,0 +1,73 @@
+.product-main-outer{
+    width: auto;
+    height: auto;
+    background-color: white;
+    border-radius: 20px;
+}
+
+
+
+.image-outer{
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-outer div{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.image-outer img{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.name-price-outer span span{
+    color: rgb(153, 148, 148);
+    font-weight: 500;
+}
+
+.check-icon, .add-btn, .sub-btn{
+    font-size: 18px!important;
+    font-weight: 600!important;
+}
+
+.choose-outer, .choose-outer span, .qty-outer{
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    gap: 5px;
+}
+
+.qty-outer span{
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-outer{
+    gap: 10px;
+}
+.add-btn-outer, .sub-btn-outer{
+    width: auto;
+    height: auto;
+    /* border: 1px solid red; */
+    background-color: white;
+    border-radius: 100%;
+    padding: 3px;
+}
+
+.option-outer{
+    display: flex;
+    gap: 5px;
+}
