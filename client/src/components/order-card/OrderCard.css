@@ -48,6 +48,12 @@
     padding: 5px;
 }
 
+.delete-icon-outer:hover{
+    cursor: pointer;
+    background-color: rgb(241, 241, 241);
+}
+
+
 .delete-icon{
     color: red;
     font-weight: 500;
