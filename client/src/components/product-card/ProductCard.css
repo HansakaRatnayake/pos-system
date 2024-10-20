@@ -27,17 +27,26 @@
     border-radius: 10px;
 }
 
-.name-price-outer span span{
+.name-price-outer{
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.price{
     color: rgb(153, 148, 148);
     font-weight: 500;
 }
 
-.check-icon, .add-btn, .sub-btn{
+.check-icon, .add-btn, .sub-btn, .stock-icon{
     font-size: 18px!important;
     font-weight: 600!important;
 }
 
-.choose-outer, .choose-outer span, .qty-outer{
+.choose-outer, .choose-outer span, .qty-outer, .pop-outer, .input-qty-outer, .input-qty-outer span, .po-outer, .po-outer span, .btn-cart-outer{
     width: auto;
     height: auto;
     display: flex;
@@ -47,7 +56,7 @@
     gap: 5px;
 }
 
-.qty-outer span{
+.qty-outer span, .pop-outer span{
     width: auto;
     height: auto;
     display: flex;
@@ -55,7 +64,7 @@
     justify-content: center;
 }
 
-.qty-outer{
+.qty-outer, .pop-outer{
     gap: 10px;
 }
 .add-btn-outer, .sub-btn-outer{
@@ -67,7 +76,18 @@
     padding: 3px;
 }
 
+.add-btn-outer:hover, .sub-btn-outer:hover{
+    background-color: rgb(247, 247, 247);
+    cursor: pointer;
+}
+
 .option-outer{
     display: flex;
     gap: 5px;
+}
+
+.txtQty{
+    height: 100%!important;
+    width: auto;
+    border-style: none;
 }
