@@ -7,7 +7,7 @@ import Stock from './screens/stock/Stock';
 import Category from './screens/category/Category';
 import Checkout from './screens/checkout/Checkout';
 import NavBar from './components/navbar/NavBar';
-import Login from './screens/login/Login';
+import Login from './screens/login/LogIn';
 
 
 
@@ -15,10 +15,10 @@ function App() {
   return (
       <Router>
         <div className={'main-outer'}>
-          
+{/*           
           <div className={'nav-bar-main-outer'}>
             <NavBar/>
-          </div>
+          </div> */}
         
           <div className={'routes-outer'}>
             <Routes>
