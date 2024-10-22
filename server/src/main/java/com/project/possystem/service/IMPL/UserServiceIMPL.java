@@ -8,6 +8,7 @@ import com.project.possystem.repository.UserRepository;
 import com.project.possystem.service.UserService;
 import com.project.possystem.util.Mapper.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class UserServiceIMPL implements UserService {
 
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserDTO> getAll(HashMap<String, String> params) {
@@ -42,6 +44,7 @@ public class UserServiceIMPL implements UserService {
         }
 
         User user = objectMapper.userDtoToUser(userDTO);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(user);
         return userDTO;
 
@@ -57,6 +60,9 @@ public class UserServiceIMPL implements UserService {
         }
 
         User user = objectMapper.userDtoToUser(userDTO);
+        if(!userrec.getPassword().equals(userDTO.getPassword())){
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
         userRepository.save(user);
         return userDTO;
     }

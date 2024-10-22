@@ -34,11 +34,13 @@ public class ItemServiceIMPL implements ItemService {
 
                 String code = params.get("code");
                 String name = params.get("name");
+                String categoryid = params.get("categoryid");
 
                 Stream<ItemDTO> stream = dtos.stream();
 
                 if(code != null) stream = stream.filter(e -> e.getCode().equals(code));
                 if(name != null) stream = stream.filter(e -> e.getName().contains(name));
+                if(categoryid != null) stream = stream.filter(e-> e.getCategory().getId() == Integer.parseInt(categoryid));
 
                 return stream.collect(Collectors.toList());
             }
