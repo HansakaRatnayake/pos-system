@@ -7,8 +7,7 @@ import Stock from './screens/stock/Stock';
 import Category from './screens/category/Category';
 import Checkout from './screens/checkout/Checkout';
 import NavBar from './components/navbar/NavBar';
-
-
+import Login from './screens/login/Login';
 
 
 
@@ -23,6 +22,7 @@ function App() {
         
           <div className={'routes-outer'}>
             <Routes>
+                <Route path='/login' element={<Login/>} />
                 <Route path='/' element={<Dashboard/>} />
                 <Route path='/items' element={<Item/>} />
                 <Route path='/category' element={<Category/>} />
@@ -30,11 +30,7 @@ function App() {
                 <Route path='/checkout' element={<Checkout/>} />
 
             </Routes>
-          </div>
-         
-
-         
-          
+          </div>         
         </div>
       </Router>
  

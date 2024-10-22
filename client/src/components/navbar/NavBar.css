@@ -6,7 +6,6 @@
     justify-content: center;
     padding: 0 30px;
 
-
 }
 
 .middle-outer> ul{
@@ -40,7 +39,7 @@
     font-family: "Roboto", sans-serif;
   }
 
-  .middle-outer ul li a:hover{
+  .middle-outer ul li a:hover, .middle-outer ul li a:focus {
     color: rgb(52, 52, 255);
     cursor: pointer;
   }

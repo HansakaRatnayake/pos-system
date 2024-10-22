@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState  ,useEffect} from 'react';
 import "./PaymentCard.css";
 
 import Grid from '@mui/material/Grid2';
@@ -6,7 +6,30 @@ import Chip from '@mui/material/Chip';
 
 
 
-function PaymentCard() {
+function PaymentCard({item}) {
+
+    const [discount, setDiscount] = useState(0);
+    const [price, setPrice] = useState(0);
+    const [orderItem, setOrderItem] = useState([]);
+  
+    useEffect(() => {
+      setOrderItem(item || []);  
+    }, [item]);
+  
+    useEffect(() => {
+      let totalDiscount = 0;
+      let totalPrice = 0;
+  
+      orderItem.forEach((itm) => {
+        totalDiscount += itm.discount;
+        totalPrice += itm.price;
+      });
+  
+      setDiscount(totalDiscount);
+      setPrice(totalPrice);
+    }, [orderItem]);
+
+
   return (
     <div className='payment-main-outer'>
         <Grid container spacing={1}>
@@ -15,11 +38,11 @@ function PaymentCard() {
             </Grid>
             <Grid size={12} className="price-outer">
                 <span>Price</span>
-                <span>$123,0</span>
+                <span>${price.toFixed(2)}</span>
             </Grid>
             <Grid size={12} className="discount-outer">
                 <span>Discount</span>
-                <span>$13,0</span>
+                <span>${discount.toFixed(2)}</span>
                 
             </Grid>
             <Grid size={12}>
@@ -28,7 +51,7 @@ function PaymentCard() {
            
             <Grid size={12} className="total-outer">
                 <span>Total</span>
-                <span>$110,0</span>
+                <span>${(price-discount).toFixed(2)}</span>
             </Grid>
         </Grid>
     </div>

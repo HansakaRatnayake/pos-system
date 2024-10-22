@@ -12,16 +12,18 @@ import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import TextField from '@mui/material/TextField';
 
 
-function ProductCard({isStockCard, isItemCard, item}) {
+function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) {
 
     const [stockcard,setStockCard] = useState(isStockCard);
     const [itemcard,settemCard] = useState(isItemCard);
     const [isPOrder, setIsPOrder] = useState(false);
-    const [qty, setQty] = useState(10);
+    const [qty, setQty] = useState(0);
     const [isItemOrder, setIsItemOrder] = useState(false);
-    const [itemQty, setItemQty] = useState(1);
+    // const [itemQty, setItemQty] = useState(1);
     const [isSubDisable, setIsSubDisable] = useState(false);
-    const [cartItem, setCartItem] = useState(null);
+    const [cartItem, setCartItem] = useState({});
+    // const [removeFromCart, setRemoveFromCart] = useState(false);
+    
 
     const handleQtyChange = (event) => {
         setQty(event.target.value)
@@ -29,33 +31,54 @@ function ProductCard({isStockCard, isItemCard, item}) {
 
     const handlePOrderBtnChange = () => {
         setIsPOrder(true);
-        setCartItem({name:});
     }
 
     const handleAddToCart = () => {
         setIsItemOrder(!isItemOrder);
+        handleQtyAdd();
+        // setCartItem({...item, qty});
+  
+    }
 
-       
+    const handleQtyAdd = () => {
+        setQty(qty+1);
+    }
+
+    const handleQtySub = () => {
+        setQty(qty-1);
     }
 
     useEffect(()=>{
-        if(itemQty <= 1) setIsSubDisable(true);
-        if(itemQty > 1) setIsSubDisable(false);
+        if(qty <= 1) setIsSubDisable(true);
+        if(qty > 1) setIsSubDisable(false);
 
-    },[itemQty]);
+        if(qty > 0) setCartItem({...item, qty});
+
+    },[qty]);
+
+    useEffect(() => {
+        onItem(cartItem);
+    },[cartItem]);
+
+    useEffect(()=>{
+
+        if(isRemoveFromCart) setIsItemOrder(false);
+
+    },[isRemoveFromCart])
+
 
 
   return (
     <div className='product-main-outer'>
         <Grid columns={1} container spacing={3} padding={2}>
             <Grid size={12} className="image-outer">
-                <img src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2018/1/23/0/FN_healthy-fast-food-red-robin-avocado-cobb-salad_s4x3.jpg.rend.hgtvcom.1280.960.suffix/1516723515457.jpeg" alt="product-name" />
+                <img src={item.photo} alt="product-name" />
             </Grid>
             {isItemCard ? (
                 <>
                     <Grid size={12} className="name-price-outer">
-                        <span>Spicy Chiken Tendon</span>
-                        <span className='price'>($25.0)</span>
+                        <span>{item.name}</span>
+                        <span className='price'>${item.price.toFixed(2)}</span>
                     </Grid>
 
                     <Grid size={12} className="option-outer">
@@ -76,7 +99,7 @@ function ProductCard({isStockCard, isItemCard, item}) {
                                         
                                         {!isSubDisable ? (
                                             <>
-                                                <span className='sub-btn-outer' onClick={()=>{setItemQty(itemQty-1)}} >
+                                                <span className='sub-btn-outer' onClick={handleQtySub} >
                                                     <RemoveRoundedIcon className='sub-btn'/>
                                                 </span>
                                             </>
@@ -88,8 +111,8 @@ function ProductCard({isStockCard, isItemCard, item}) {
                                             </>
                                         )
                                         }
-                                        {itemQty}
-                                        <span className='add-btn-outer' onClick={()=>{setItemQty(itemQty+1)}}>
+                                        {qty}
+                                        <span className='add-btn-outer' onClick={handleQtyAdd}>
                                             <AddRoundedIcon className='add-btn'/>
                                         </span>
                                         
@@ -191,5 +214,6 @@ function ProductCard({isStockCard, isItemCard, item}) {
     </div>
   )
 }
+
 
 export default ProductCard

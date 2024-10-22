@@ -10,7 +10,7 @@ function NavBar() {
 
             <div className="left-outer">
                 <div className={'logo-outer'}>
-                    <span>POS <span>System</span></span>
+                    <span><span>Logo</span></span>
                     
                 </div>
             </div>
