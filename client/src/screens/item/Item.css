@@ -42,8 +42,13 @@
     gap: 5px;
 }
 
-.search-icon,.filter-icon, .lunchDining-icon{
+.filter-icon, .lunchDining-icon{
     font-size: 16px!important;
+}
+
+.search-icon{
+    font-size: 22px!important;
+
 }
 
 .menu-item-categories{
@@ -151,3 +156,14 @@
     padding: 10px 0;
     border-radius: 60px;
 }
+
+.txtsearch{
+    width: 50px; /* Initial width */
+    opacity: 0.8;
+}
+
+.txtsearch:focus-within {
+    width: 300px; /* New width when focused */
+    transition: width 1s ease, opacity 1s ease;
+    opacity: 1;
+  }
