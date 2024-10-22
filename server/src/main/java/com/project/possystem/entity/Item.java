@@ -39,4 +39,8 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private Set<Stock> stocks = new LinkedHashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "item")
+    private Set<Transactionitem> transactionitems = new LinkedHashSet<>();
+
 }
