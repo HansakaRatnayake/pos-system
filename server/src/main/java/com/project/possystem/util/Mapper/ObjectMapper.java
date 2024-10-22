@@ -28,4 +28,8 @@ public interface ObjectMapper {
     List<StockDTO> stockListToDtoList(List<Stock> stocks);
 
     Stock stockDtoToStock(StockDTO stockDTO);
+
+    List<TransactionDTO> transactionListToDtoList(List<Transaction> transactions);
+
+    Transaction transactionDtoToTransaction(TransactionDTO transactionDTO);
 }
