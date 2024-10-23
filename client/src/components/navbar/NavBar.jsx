@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 import { UserContext } from '../../hooks/UserContext';
+import OnlineStatus from '../../utils/OnlineStatus';
 
 
 function NavBar() {
@@ -42,8 +43,10 @@ function NavBar() {
                 
                 
                 <div className="right-outer">
-                    <div className="status-outer">Online</div>
-                    <div className={'avatar-outer'}></div>
+                    <div className="status-outer"><OnlineStatus/></div>
+                    <div className={'avatar-outer'}>
+                        <img className='avatar' src="assests/images/DefaultAvatar.png" alt="Avatar" />
+                    </div>
                     <div className={'user-outer'}>
                         <span>{user.username}</span>
                         <p>{user.role.name}</p>

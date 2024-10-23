@@ -5,6 +5,8 @@ import Grid from '@mui/material/Grid2';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import TurnedInOutlinedIcon from '@mui/icons-material/TurnedInOutlined';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+
 
 import ProductCard from '../../components/product-card/ProductCard';
 import OrderCard from '../../components/order-card/OrderCard';
@@ -12,6 +14,15 @@ import PaymentCard from '../../components/payment-card/PaymentCard';
 
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import ContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import ItemAddForm from '../../components/item-form/ItemAddForm';
+
 
 function Item() {
 
@@ -40,6 +51,16 @@ function Item() {
     {id:1,name:"Italian"},
     {id:1,name:"Fast foods"},
   ]);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   const handleSearchBtn = () => {
     setIsClickSearchBtn(!isClickSearchBtn);
@@ -55,7 +76,6 @@ function Item() {
   }
 
   const handleItem = (orderItem) => {
-     console.log(cart.length);
      let selecteditm = -1;
      
      if(cart.length > 0) {
@@ -98,8 +118,7 @@ function Item() {
             <Grid size={12} className={"menu-item-head"}>
               <span>Menu Item <span>({itemlist.length})</span></span>
               <div className="menu-option">
-                {isClickSearchBtn ? 
-                (
+               
                   <TextField
                     label={<span><SearchOutlinedIcon className='search-icon' /> Search By Name</span>}
                     className='txtsearch'
@@ -108,11 +127,10 @@ function Item() {
                     type="text"
                     size="small"
                   />
-                ) 
-                : 
-                (
-                  <></>
-                )}
+                  <Button variant="contained" color='primary' startIcon={<AddCircleOutlinedIcon/>} onClick={handleClickOpen}>New Item</Button>
+
+              
+               
                 {/* Ensure onClick works for the search button */}
                 {/* <Chip 
                   label={<SearchOutlinedIcon className='search-icon' />} 
@@ -183,6 +201,15 @@ function Item() {
           </Grid>
         </Grid>
       </Grid>
+
+      <Dialog
+          open={open}
+          onClose={handleClose}
+        >
+          <ItemAddForm categories={categories}/>
+            
+        </Dialog>
+
     </div>
   );
 }

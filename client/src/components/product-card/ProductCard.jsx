@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './ProductCard.css';
 
+
+
 import Grid from '@mui/material/Grid2';
 import Chip from '@mui/material/Chip';
 
@@ -10,6 +12,10 @@ import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) {
@@ -23,6 +29,7 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
     const [isSubDisable, setIsSubDisable] = useState(false);
     const [cartItem, setCartItem] = useState({});
     // const [removeFromCart, setRemoveFromCart] = useState(false);
+   
     
 
     const handleQtyChange = (event) => {
@@ -72,7 +79,16 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
     <div className='product-main-outer'>
         <Grid columns={1} container spacing={3} padding={2}>
             <Grid size={12} className="image-outer">
-                <img src={item.photo} alt="product-name" />
+                <img className='product-image' src={item.photo} alt="product-name" />
+                <div className="image-buttons">
+                        <Button className='btn-edit' variant='contained' startIcon={<EditIcon />}>
+                            Edit
+                        </Button>
+                        <Button className='btn-delete' variant='contained' color='error' startIcon={<DeleteIcon/>}>
+                            Delete
+                        </Button>
+                        
+                </div>
             </Grid>
             {isItemCard ? (
                 <>
@@ -209,8 +225,9 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
             )
             }
             
-
         </Grid>
+          
+
     </div>
   )
 }

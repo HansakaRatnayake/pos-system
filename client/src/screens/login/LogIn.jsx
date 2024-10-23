@@ -65,8 +65,8 @@ const  LogIn = () => {
         <div className="login-card">
 
             <Grid className="login-card-grid" container spacing={0}>
-                <Grid className="image-outer" size={{ md:6, xs:12}}>
-                    <img className='image' src="assests/images/loginimg.png" alt="login-page-image" />
+                <Grid className="login-image-outer" size={{ md:6, xs:12}}>
+                    <img className='login-image' src="assests/images/loginimg.png" alt="login-page-image" />
                 </Grid>
 
                 
