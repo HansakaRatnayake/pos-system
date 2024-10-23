@@ -2,9 +2,11 @@ package com.project.possystem.service.IMPL;
 
 import com.project.possystem.dto.UserDTO;
 import com.project.possystem.entity.User;
+import com.project.possystem.entity.Userstatus;
 import com.project.possystem.exception.ResourceAlreadyExistException;
 import com.project.possystem.exception.ResourceNotFoundException;
 import com.project.possystem.repository.UserRepository;
+import com.project.possystem.repository.UserStatusRepository;
 import com.project.possystem.service.UserService;
 import com.project.possystem.util.Mapper.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 public class UserServiceIMPL implements UserService {
 
     private final UserRepository userRepository;
+    private final UserStatusRepository userStatusRepository;
     private final ObjectMapper objectMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -42,6 +45,12 @@ public class UserServiceIMPL implements UserService {
         if(userRepository.existsByUsername(userDTO.getUsername())){
             throw new ResourceAlreadyExistException("Username Already Exist!");
         }
+
+        List<Userstatus> all = userStatusRepository.findAll();
+        Userstatus userstatus = all.stream().findFirst()
+                .filter(c -> c.getName().equalsIgnoreCase("active")).orElseThrow(() -> new ResourceNotFoundException("Active status not found"));
+
+        userDTO.setUserstatus(userstatus);
 
         User user = objectMapper.userDtoToUser(userDTO);
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));

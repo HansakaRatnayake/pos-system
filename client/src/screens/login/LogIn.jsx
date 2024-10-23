@@ -1,14 +1,65 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './LogIn.css';
 
-
+import Axios from 'axios';
+import Cookies from 'js-cookie';
 import {Button, TextField, Typography, Box, Divider } from "@mui/material";
 import GoogleIcon from '@mui/icons-material/Google'; // Google Icon
 import AppleIcon from '@mui/icons-material/Apple'; // Apple Icon
-
 import Grid from '@mui/material/Grid2';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../hooks/UserContext';
+
 
 const  LogIn = () => {
+  
+  const url = process.env.REACT_APP_API_URL;
+
+  const accessToken = Cookies.get('accessToken');
+
+  const [loginCredentials, setLoginCredentials] = useState({
+    username:'',
+    password:''
+  });
+  const navigate = useNavigate();
+  const [authUser, setAuthUser] = useState({
+    id: '',
+    username: '',
+    mobile: '',
+    email: '',
+    userstatus: '',
+    role: ''
+  });
+
+  const {login} = useContext(UserContext);
+
+
+  const handleLoginAction = (e) => {
+    e.preventDefault();    
+    
+    Axios.post(`${url}/auth/authenticate`, loginCredentials,{withCredentials: true})
+    .then((res)=>{
+      const {id, username, mobile, email, userstatus, role} = res.data;
+      setAuthUser({...authUser, id, username, mobile, email, userstatus, role});
+      login(res.data);
+      navigate('/dashboard');
+      
+    })
+    .catch((err)=>{
+      console.log(err);
+      
+    })
+
+  }
+
+  useEffect(()=>{})
+
+  const handleTextFieldChange = (e) => {
+    const {name, value} = e.target;
+    setLoginCredentials({...loginCredentials,[name]:value});
+
+  }
+
   return (
     <div className='login-main-outer'>
         <div className="login-card">
@@ -40,7 +91,7 @@ const  LogIn = () => {
                         <Divider style={{ margin: "20px 0" }} />
 
                         {/* Third-party login buttons */}
-                        <Button
+                        {/* <Button
                           variant="outlined"
                           fullWidth
                           startIcon={<GoogleIcon />}
@@ -59,32 +110,42 @@ const  LogIn = () => {
 
                         <Typography variant="body2" align="center">
                           Or continue with email
-                        </Typography>
+                        </Typography> */}
 
                         {/* Email and Password input */}
-                        <TextField
-                          label="Email Address"
-                          variant="outlined"
-                          fullWidth
-                          margin="normal"
-                        />
-                        <TextField
-                          label="Password"
-                          variant="outlined"
-                          type="password"
-                          fullWidth
-                          margin="normal"
-                        />
+                        <form onSubmit={handleLoginAction}>
+                            <TextField
+                              required
+                              label="Email Address"
+                              variant="outlined"
+                              fullWidth
+                              margin="normal"
+                              name='username'
+                              onChange={handleTextFieldChange}
+                              
+                            />
+                            <TextField
+                              required
+                              label="Password"
+                              variant="outlined"
+                              type="password"
+                              fullWidth
+                              margin="normal"
+                              name='password'
+                              onChange={handleTextFieldChange}
+                            />
 
-                        {/* Sign-in button */}
-                        <Button
-                          variant="contained"
-                          fullWidth
-                          color="primary"
-                          style={{ marginTop: "20px" }}
-                        >
-                          Login 
-                        </Button>
+                            {/* Sign-in button */}
+                            <Button
+                              variant="contained"
+                              fullWidth
+                              color="primary"
+                              style={{ marginTop: "20px" }}
+                              type='submit'
+                            >
+                              Login 
+                            </Button>
+                        </form>
                       </Box>
                     </Grid>
                         
