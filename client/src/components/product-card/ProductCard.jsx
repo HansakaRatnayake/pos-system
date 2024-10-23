@@ -79,7 +79,7 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
     <div className='product-main-outer'>
         <Grid columns={1} container spacing={3} padding={2}>
             <Grid size={12} className="image-outer">
-                <img className='product-image' src={item.photo} alt="product-name" />
+                <img className='product-image' src={`data:image/png;base64,${item.photo}`} alt="product-name" />
                 <div className="image-buttons">
                         <Button className='btn-edit' variant='contained' startIcon={<EditIcon />}>
                             Edit

@@ -8,12 +8,13 @@ import toast from "react-hot-toast";
 import "./ItemAddForm.css";
 import {MenuItem, TextField}  from '@mui/material';
 import RandomCodeGenerator from '../../utils/RandomCodeGenataror';
+import { useNavigate } from 'react-router-dom';
 
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
 
-function ItemAddForm({categories}) {
+const ItemAddForm = ({categories, onCreateFormClose}) => {
 
   const [item, setItem] = useState({
     name:'',
@@ -26,6 +27,9 @@ function ItemAddForm({categories}) {
   const [photoPreview, setPhotoPreview] = useState(null);
   const [showUpload, setShowUpload] = useState(true);
   const [categoryList, setCategoryList] = useState([]);
+
+  const navigate = useNavigate();
+
 
   useEffect(()=>{
     setCategoryList(categories);
@@ -56,11 +60,12 @@ function ItemAddForm({categories}) {
     console.log(obj);
     
 
-    axios.post(`http://localhost:8080/api/v1/items`, obj,{withCredentials: true})
+    axios.post(`${baseUrl}/items`, obj,{withCredentials: true})
       .then(res => {
         console.log(res);
-        
-        toast.success("New Item Successfully Saved");
+        toast.success("Item Successfully Saved");
+        handleCancel();
+        navigate('/items');
       })
       .catch(err => {
         toast.error("Somthig Error.Try again");
@@ -74,7 +79,7 @@ function ItemAddForm({categories}) {
   }
 
   const handleCancel = () => {
-   
+    onCreateFormClose(false)
   }
 
   return (

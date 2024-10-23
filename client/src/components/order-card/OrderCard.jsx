@@ -17,7 +17,7 @@ function OrderCard({cartItem, onOrderRemove}) {
     <div className='order-card-main-outer'>
         <Grid size={12} className="order-main-grid" gap={2}>
             <Grid size={3} className="order-image-outer">
-                <img src={cartItem.photo} alt="product-name" />
+                <img src={`data:image/png;base64,${cartItem.photo}`} alt="product-name" />
             </Grid>
             <Grid size={6} className="detail-outer">
                 <span>{cartItem.name}</span>
