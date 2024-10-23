@@ -19,4 +19,5 @@ public class ItemDTO {
     private Category category;
     private String code;
     private byte[] photo;
+    private BigDecimal poprice;
 }
