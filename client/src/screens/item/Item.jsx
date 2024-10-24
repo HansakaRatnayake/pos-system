@@ -58,9 +58,14 @@ function Item() {
   }
 
   const handleSearch = (event) => {
-    let searchText = event.target.value;
-    // setSearch(event.target.value); 
-    let searchCategoryId = -1;
+    setSearch(event.target.value); 
+    console.log(search);
+    
+    
+    // axios.get(`${baseURL}/users?name=${search}`, { withCredentials: true }).then(res => {
+    //   console.log(res.data);
+    //   setItemlist(res.data);
+    // }).catch(err => console.log("Items fetching error : " + err));
 
 
     

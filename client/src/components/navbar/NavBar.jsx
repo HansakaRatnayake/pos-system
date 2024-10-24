@@ -28,7 +28,7 @@ function NavBar() {
       <nav className={'nav-bar'}>
         <div className="left-outer">
           <div className={'logo-outer'}>
-            <span>Logo</span>
+            <span>Tango</span>
           </div>
         </div>
 
