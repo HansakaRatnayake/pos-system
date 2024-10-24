@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './LogIn.css';
+import './SignUp.css';
 
 import Axios from 'axios';
 import Cookies from 'js-cookie';
@@ -11,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../hooks/UserContext';
 
 
-const  LogIn = () => {
+const  SignUp = () => {
   
   const url = process.env.REACT_APP_API_URL;
 
@@ -19,7 +19,10 @@ const  LogIn = () => {
 
   const [loginCredentials, setLoginCredentials] = useState({
     username:'',
-    password:''
+    password:'',
+    email:'',
+    mobile:'',
+    role:''
   });
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useState({
@@ -31,17 +34,16 @@ const  LogIn = () => {
     role: ''
   });
 
-  const {login} = useContext(UserContext);
-
+  
 
   const handleLoginAction = (e) => {
     e.preventDefault();    
     
-    Axios.post(`${url}/auth/authenticate`, loginCredentials,{withCredentials: true})
+    Axios.post(`${url}/auth/register`, loginCredentials,{withCredentials: true})
     .then((res)=>{
       const {id, username, mobile, email, userstatus, role} = res.data;
       setAuthUser({...authUser, id, username, mobile, email, userstatus, role});
-      login(res.data);
+    //   login(res.data);
       navigate('/dashboard');
       
     })
@@ -51,8 +53,6 @@ const  LogIn = () => {
     })
 
   }
-
-  useEffect(()=>{})
 
   const handleTextFieldChange = (e) => {
     const {name, value} = e.target;
@@ -82,37 +82,14 @@ const  LogIn = () => {
                       <Box style={{ width: "80%", maxWidth: "400px"}}>
                         {/* Sign-in text */}
                         <Typography variant="h4" gutterBottom>
-                          LogIn
+                          SignUp
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
-                          Don’t have an account?  <Link to="/signup">Sign Up</Link>
+                          Already have an account? <Link to="/login">LogIn</Link>
                         </Typography>
 
                         <Divider style={{ margin: "20px 0" }} />
 
-                        {/* Third-party login buttons */}
-                        {/* <Button
-                          variant="outlined"
-                          fullWidth
-                          startIcon={<GoogleIcon />}
-                          style={{ marginBottom: "10px" }}
-                        >
-                          Sign in with Google
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          fullWidth
-                          startIcon={<AppleIcon />}
-                          style={{ marginBottom: "20px" }}
-                        >
-                          Sign in with Apple
-                        </Button>
-
-                        <Typography variant="body2" align="center">
-                          Or continue with email
-                        </Typography> */}
-
-                        {/* Email and Password input */}
                         <form onSubmit={handleLoginAction}>
                             <TextField
                               required
@@ -135,6 +112,31 @@ const  LogIn = () => {
                               onChange={handleTextFieldChange}
                             />
 
+                            <TextField
+                              required
+                              label="mobile"
+                              variant="outlined"
+                              type="number"
+                              fullWidth
+                              margin="normal"
+                              name='mobile'
+                              onChange={handleTextFieldChange}
+                            />
+
+                            <TextField
+                              required
+                              select
+                              label="select role"
+                              variant="outlined"
+                              fullWidth
+                              margin="normal"
+                              name='role'
+                              onChange={handleTextFieldChange}
+                            /> 
+
+                           
+                            
+
                             {/* Sign-in button */}
                             <Button
                               variant="contained"
@@ -143,7 +145,7 @@ const  LogIn = () => {
                               style={{ marginTop: "20px" }}
                               type='submit'
                             >
-                              Login 
+                              SignUp 
                             </Button>
                         </form>
                       </Box>
@@ -160,4 +162,4 @@ const  LogIn = () => {
 
 
 
-export default LogIn;
+export default SignUp;

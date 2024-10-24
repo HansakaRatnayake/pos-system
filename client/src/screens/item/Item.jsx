@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Item.css';
 
 import Grid from '@mui/material/Grid2';
@@ -23,6 +23,8 @@ import ContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ItemAddForm from '../../components/item-form/ItemAddForm';
 import axios from 'axios';
+import RandomCodeGenerator from '../../utils/RandomCodeGenataror';
+import { UserContext } from '../../hooks/UserContext';
 
 
 function Item() {
@@ -38,6 +40,8 @@ function Item() {
   const [itemlist, setItemlist] = useState([]);
 
   const [categories, setCategories] = useState([]);
+
+  const {user} = useContext(UserContext);
 
   const [open, setOpen] = React.useState(false);
 
@@ -136,7 +140,13 @@ function Item() {
                     type="text"
                     size="small"
                   />
-                  <Button variant="contained" color='primary' startIcon={<AddCircleOutlinedIcon/>} onClick={handleClickOpen}>New Item</Button>
+                  {user.role.name === "Admin" || user.role.name === "Manager"?(
+                    <>
+                    <Button variant="contained" color='primary' startIcon={<AddCircleOutlinedIcon/>} onClick={handleClickOpen}>New Item</Button>
+                    </>
+                  ):(
+                    <></>
+                  )}
 
               
                
@@ -181,7 +191,7 @@ function Item() {
           <Grid size={12} className={"checkout-outer"} paddingTop={5} paddingLeft={3} paddingRight={3} borderRadius={5} paddingBottom={5}>
             <Grid size={12} className="order-summery-head">
               <span>Order's summary</span>
-              <p>#219021</p>
+              <p>#{RandomCodeGenerator()}</p>
               <hr className='hr'/>
               <span className='heading-total'>Cart items <span>({cartItemCount})</span></span>
             </Grid>
@@ -217,7 +227,7 @@ function Item() {
         >
           <ItemAddForm categories={categories} onCreateFormClose={handleCreateFormClose}/>
             
-        </Dialog>
+      </Dialog>
 
     </div>
   );

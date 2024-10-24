@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ProductCard.css';
 
 
@@ -16,6 +16,11 @@ import Button from '@mui/material/Button';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Dialog from '@mui/material/Dialog';
+import ItemUpdateForm from '../item-form/ItemUpdateForm';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { UserContext } from '../../hooks/UserContext';
 
 
 function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) {
@@ -29,49 +34,88 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
     const [isSubDisable, setIsSubDisable] = useState(false);
     const [cartItem, setCartItem] = useState({});
     // const [removeFromCart, setRemoveFromCart] = useState(false);
-   
+
+    const baseURL = process.env.REACT_APP_API_URL;
+
+    const [open, setOpen] = React.useState(false);
+
+    const {user} = useContext(UserContext);
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleCreateFormClose = (action) => {
+        setOpen(action);
+        
+    }
+
+    const handleItemDelete = () => {
+        const confirm = window.confirm("Are you sure you want to delete?")
+            if (confirm) {
+                axios.delete(`${baseURL}/items/${item.id}`)
+                    .then(() => {
+                        toast.success("User Successfully Deleted!");
+                        setTimeout(()=>{window.location.reload();},2000)
+                        
+                    
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        toast.error("Error on delete..Try again");
+                    })
+
+            
+            }
+    }
     
+        
 
-    const handleQtyChange = (event) => {
-        setQty(event.target.value)
-    }
+        const handleQtyChange = (event) => {
+            setQty(event.target.value)
+        }
 
-    const handlePOrderBtnChange = () => {
-        setIsPOrder(true);
-    }
+        const handlePOrderBtnChange = () => {
+            setIsPOrder(true);
+        }
 
-    const handleAddToCart = () => {
-        setIsItemOrder(!isItemOrder);
-        handleQtyAdd();
-        // setCartItem({...item, qty});
-  
-    }
+        const handleAddToCart = () => {
+            setIsItemOrder(!isItemOrder);
+            handleQtyAdd();
+            // setCartItem({...item, qty});
+    
+        }
 
-    const handleQtyAdd = () => {
-        setQty(qty+1);
-    }
+        const handleQtyAdd = () => {
+            setQty(qty+1);
+        }
 
-    const handleQtySub = () => {
-        setQty(qty-1);
-    }
+        const handleQtySub = () => {
+            setQty(qty-1);
+        }
 
-    useEffect(()=>{
-        if(qty <= 1) setIsSubDisable(true);
-        if(qty > 1) setIsSubDisable(false);
+        useEffect(()=>{
+            if(qty <= 1) setIsSubDisable(true);
+            if(qty > 1) setIsSubDisable(false);
 
-        if(qty > 0) setCartItem({...item, qty});
+            if(qty > 0) setCartItem({...item, qty});
 
-    },[qty]);
+        },[qty]);
 
-    useEffect(() => {
-        onItem(cartItem);
-    },[cartItem]);
+        useEffect(() => {
+            onItem(cartItem);
+        },[cartItem]);
 
-    useEffect(()=>{
+        useEffect(()=>{
 
-        if(isRemoveFromCart) setIsItemOrder(false);
+            if(isRemoveFromCart) setIsItemOrder(false);
 
-    },[isRemoveFromCart])
+        },[isRemoveFromCart])
 
 
 
@@ -80,15 +124,25 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
         <Grid columns={1} container spacing={3} padding={2}>
             <Grid size={12} className="image-outer">
                 <img className='product-image' src={`data:image/png;base64,${item.photo}`} alt="product-name" />
-                <div className="image-buttons">
-                        <Button className='btn-edit' variant='contained' startIcon={<EditIcon />}>
-                            Edit
-                        </Button>
-                        <Button className='btn-delete' variant='contained' color='error' startIcon={<DeleteIcon/>}>
-                            Delete
-                        </Button>
-                        
-                </div>
+                {user.role.name === "Admin" || user.role.name === "Manager" || user.role.name === "Store Keeper" ? (
+                    <>
+                        <div className="image-buttons">
+                            <Button className='btn-edit' variant='contained' startIcon={<EditIcon />} onClick={handleClickOpen}>
+                                Edit
+                            </Button>
+                            <Button className='btn-delete' variant='contained' color='error' startIcon={<DeleteIcon/>} onClick={handleItemDelete}>
+                                Delete
+                            </Button>
+                     
+                        </div>
+
+                    </>
+                ) : (
+                    <></>
+                )} 
+                    
+                
+               
             </Grid>
             {isItemCard ? (
                 <>
@@ -160,11 +214,12 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
             ):(
                 <>
                     <Grid size={12} className="name-price-outer">
-                        <span>Spicy Chiken Tendon <span>($25.0)</span></span>
+                        <span>{item.name}</span>
+                        <span className='price'>${item.price.toFixed(2)}</span>
                     </Grid>
                     <Grid size={12} className="option-outer">
                         <Chip
-                            label={<span className='choose-outer'><span><Inventory2OutlinedIcon className='stock-icon'/> Stock : 130</span></span>}     
+                            label={<span className='choose-outer'><span><Inventory2OutlinedIcon className='stock-icon'/> Stock : {130}</span></span>}     
                             color='success'
                             sx={{width:"50%"}}
                         />
@@ -199,7 +254,7 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
                                         label={<span className='btn-cart-outer'><span>Add To Cart</span></span>}     
                                         color='success'
                                         clickable
-                                        onClick={handlePOrderBtnChange}
+                                        onClick={handleAddToCart}
                                         sx={{width:"100%"}}
                                     />
 
@@ -226,6 +281,15 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
             }
             
         </Grid>
+
+        <Dialog
+          open={open}
+          onClose={handleClose}
+        >
+          <ItemUpdateForm onCreateFormClose={handleCreateFormClose} oldItem={item}/>
+            
+      </Dialog>
+
           
 
     </div>

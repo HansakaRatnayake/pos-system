@@ -13,6 +13,8 @@ import PaymentCard from '../../components/payment-card/PaymentCard';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
+import axios from 'axios';
+import RandomCodeGenerator from '../../utils/RandomCodeGenataror';
 
 const Stock = () => {
 
@@ -24,23 +26,9 @@ const Stock = () => {
   const [isHaveCartItem, setIsHaveCartItem] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(cart.length);
   const [isRemoveFromCart, setIsRemoveFromCart] = useState(false);
-  const [itemlist, setItemlist] = useState([
-    {name:"Item Name 1",price:100,discount:5,id:"Itm220032#",categoryId:1 ,photo:"https://food.fnr.sndimg.com/content/dam/images/food/fullset/2018/1/23/0/FN_healthy-fast-food-red-robin-avocado-cobb-salad_s4x3.jpg.rend.hgtvcom.1280.960.suffix/1516723515457.jpeg"},
-    {name:"Item Name 2",price:200,discount:10,id:"Itm220033#",categoryId:2 ,photo:"https://www.dosafactorymenu.com/blog-admin/images/indian-food-items-apt-for-everyone041641.jpeg"},
-    {name:"Item Name 3",price:300,discount:20,id:"Itm220034#",categoryId:2 ,photo:"https://blinkco.io/wp-content/uploads/2021/05/image-24.png"},
-    {name:"Item Name 4",price:400,discount:30,id:"Itm220035#",categoryId:3 ,photo:"https://people.com/thmb/FTWFalNQHdCGnvv1Hk5BWqkbRf8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(857x328:859x330)/taco-bell-new-crunchwrap-041323-ef1c127f27ad43a48bdbea43eea0ccc3.jpg"},
-    {name:"Item Name 5",price:500,discount:40,id:"Itm220036#",categoryId:3 ,photo:"https://www.thedailymeal.com/img/gallery/the-most-popular-menu-items-at-americas-top-chain-restaurants-gallery/iStock-692557700.jpg"},
-    {name:"Item Name 6",price:600,discount:50,id:"Itm220037#",categoryId:3 ,photo: "https://people.com/thmb/FTWFalNQHdCGnvv1Hk5BWqkbRf8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(857x328:859x330)/taco-bell-new-crunchwrap-041323-ef1c127f27ad43a48bdbea43eea0ccc3.jpg"},
-]);
+  const [itemlist, setItemlist] = useState([]);
 
-  const [categories, setCategories] = useState([
-    {id:1,name:"Asian"},
-    {id:1,name:"Chinees"},
-    {id:1,name:"Spanish"},
-    {id:1,name:"Burgers"},
-    {id:1,name:"Italian"},
-    {id:1,name:"Fast foods"},
-  ]);
+  const [categories, setCategories] = useState([]);
   
   const handleSearchBtn = () => {
     setIsClickSearchBtn(!isClickSearchBtn);
@@ -50,8 +38,6 @@ const Stock = () => {
     let searchText = event.target.value;
     // setSearch(event.target.value); 
     let searchCategoryId = -1;
-
-    // if(searchText === '')
     
   }
 
@@ -75,6 +61,24 @@ const Stock = () => {
      
   }
 
+
+  const fetchItemData = () => {
+    axios.get(`${baseURL}/items`,{withCredentials: true}).then(res => {
+      console.log(res.data);
+      setItemlist(res.data); 
+    }).catch(err => console.log("Items fetching error : "+ err));
+  }
+
+
+  const fetchCategoryData = () => {
+    axios.get(`${baseURL}/categories`,{withCredentials: true}).then(res => {
+      console.log(res.data);
+      setCategories(res.data); 
+    }).catch(err => console.log("Categories fetching error : "+ err));
+  }
+
+
+
   const handleDeleteFromCart = (deleteItem) =>{
     
     const selectedItemArr = cart.filter(citm => citm.id  !== deleteItem.id);  
@@ -85,8 +89,12 @@ const Stock = () => {
 
   useEffect(()=>{
     setCartItemCount(cart.length);
-  },[cart])
+  },[cart]);
 
+  useEffect(() => {
+    fetchItemData();
+    fetchCategoryData();
+  }, []);
 
 
 
@@ -141,8 +149,8 @@ const Stock = () => {
         <Grid size={4} paddingLeft={4} paddingRight={8} paddingTop={5}>
           <Grid size={12} className={"checkout-outer"} paddingTop={5} paddingLeft={3} paddingRight={3} borderRadius={5} paddingBottom={5}>
             <Grid size={12} className="order-summery-head">
-              <span>Order's summary</span>
-              <p>#219021</p>
+              <span>Purchase Order summary</span>
+              <p>#{RandomCodeGenerator()}</p>
               <hr className='hr'/>
               <span className='heading-total'>Cart items <span>({cartItemCount})</span></span>
             </Grid>
