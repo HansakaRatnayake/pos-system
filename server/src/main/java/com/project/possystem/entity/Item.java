@@ -32,6 +32,9 @@ public class Item {
     @Column(name = "code", length = 45)
     private String code;
 
+    @Column(name = "quentity", precision = 10, scale = 2)
+    private BigDecimal quentity;
+
     @Lob
     @Column(name = "photo", columnDefinition = "LONGBLOB")
     private byte[] photo;
