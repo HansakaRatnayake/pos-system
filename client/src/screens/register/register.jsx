@@ -17,6 +17,7 @@ const Register = () => {
   const [users, setUsers] = useState([]);
   const {user} = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
+  const [search, setSearch] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,6 +29,16 @@ const Register = () => {
 
   const handleCreateFormClose = (action) => {
     setOpen(action);
+  }
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value); 
+    
+    axios.get(`${baseURL}/users?username=${search}`, { withCredentials: true }).then(res => {
+      console.log(res.data);
+      setUsers(res.data);
+    }).catch(err => console.log("Items fetching error : " + err));
+    
   }
 
   useEffect(() => {
@@ -47,8 +58,10 @@ const Register = () => {
         <div className="menu-option">
 
           <TextField
-            label={<span><SearchOutlinedIcon className='search-icon' /> Search By Name</span>}
+            label={<span><SearchOutlinedIcon className='search-icon' /> Search By Username</span>}
             className='txtsearch'
+            value={search}
+            onChange={handleSearch}
             type="text"
             size="small"
           />

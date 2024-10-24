@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +37,13 @@ public class UserServiceIMPL implements UserService {
             if (params.isEmpty()) {
                 return dtos;
             } else {
-                return dtos;
+                String username = params.get("username");
+
+                Stream<UserDTO> stream = dtos.stream();
+
+                if(username != null) stream = stream.filter(e->e.getUsername().contains(username));
+
+                return stream.collect(Collectors.toList());
             }
         } else {
             throw new ResourceNotFoundException("Users Not Found!");
