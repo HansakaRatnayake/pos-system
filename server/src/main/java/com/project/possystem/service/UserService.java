@@ -13,4 +13,7 @@ public interface UserService {
     UserDTO update(UserDTO userDTO);
 
     String delete(Integer id);
+
+    public void initializeAdmin();
+
 }

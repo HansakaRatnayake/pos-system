@@ -16,7 +16,7 @@ public class CookieProvider {
     public Cookie createAuthCookie(String token){
         Cookie authCookie = new Cookie("accessToken",token);
         authCookie.setSecure(false);
-        authCookie.setHttpOnly(true);
+        authCookie.setHttpOnly(false);
         authCookie.setPath("/");
         authCookie.setMaxAge(accessTokenExpirationMs / 1000);
 
@@ -26,7 +26,7 @@ public class CookieProvider {
     public Cookie createRefreshCookie(String token){
         Cookie refreshCookie = new Cookie("refreshToken",token);
         refreshCookie.setSecure(false);
-        refreshCookie.setHttpOnly(true);
+        refreshCookie.setHttpOnly(false);
         refreshCookie.setPath("/api/v1/auth");
         refreshCookie.setMaxAge(refreshTokenExpirationMs / 1000);
 

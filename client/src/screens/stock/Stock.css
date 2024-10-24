@@ -39,7 +39,7 @@
     width: auto;
     height: auto;
     display: flex;
-    gap: 5px;
+    gap: 15px;
 }
 
 .filter-icon, .lunchDining-icon{

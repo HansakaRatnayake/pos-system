@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     padding: 0 30px;
-
+    /* background-color: #0cb47c; */
 
 }
 
@@ -40,7 +40,7 @@
     font-family: "Roboto", sans-serif;
   }
 
-  .middle-outer ul li a:hover{
+  .middle-outer ul li a:hover, .middle-outer ul li a:focus {
     color: rgb(52, 52, 255);
     cursor: pointer;
   }
@@ -67,8 +67,26 @@
 .avatar-outer{
     width: 40px;
     height: 40px;
-    background-color: rgb(226, 233, 255);
+    /* background-color: rgb(255, 255, 255); */
     border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.avatar-outer :hover{
+    border-radius: 50px;
+    cursor: pointer;
+    background-color: #f8f8f8;
+}
+
+.avatar{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.avatar:hover{
+    cursor: pointer;
 }
 
 .logo-outer{
@@ -113,7 +131,7 @@
     justify-content: flex-start;
 }
 
-.status-outer{
+.online, .offline{
     width: auto;
     height: auto;
     padding: 5px 20px;
@@ -121,10 +139,25 @@
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    background-color:#a6d3fd;
-    color: #2b96fa;
+   
     font-size: 14px;
     font-family: "Roboto", sans-serif;
+}
+.online{
+    background-color:#a6d3fd;
+    color: #2b96fa;
+}
+.offline{
+    background-color:#fdc9a6;
+    color: #fa662b;
+}
+
+.status-outer{
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .user-outer{
@@ -146,3 +179,41 @@
 .user-outer p{
     font-size: 12px;
 }
+
+/* Dropdown styles */
+.avatar-outer {
+    position: relative;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px;
+  }
+  
+  .dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .dropdown-menu li:last-child {
+    border-bottom: none;
+  }
+  

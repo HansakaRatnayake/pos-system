@@ -32,6 +32,7 @@ public class Item {
     @Column(name = "code", length = 45)
     private String code;
 
+    @Lob
     @Column(name = "photo")
     private byte[] photo;
 

@@ -1,0 +1,71 @@
+.file-upload {
+    display: block;
+    margin-top: 20px;
+  }
+  
+  .file-upload-box {
+    width: 100%;
+    height: 64px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    cursor: pointer;
+  }
+  
+  .file-upload-box.show {
+    height: 256px;
+  }
+  
+  .file-upload-box.hide {
+    height: 256px;
+    background-color: white;
+  }
+  
+  .upload-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .upload-icon {
+    width: 32px;
+    height: 32px;
+    color: #888;
+  }
+  
+  .upload-prompt p {
+    margin: 4px 0;
+    color: #555;
+    font-size: 14px;
+  }
+
+  .image-preview{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .mt-2 {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    /* border:1px solid red ; */
+  }
+  

@@ -21,10 +21,32 @@ public class RoleServiceIMPL implements RoleService {
     @Override
     public List<RoleDTO> getAll() {
         List<Role> roles = roleRepository.findAll();
-        if(!roles.isEmpty()){
+        if (!roles.isEmpty()) {
             return objectMapper.roleListToDtoList(roles);
-        }else{
+        } else {
             throw new ResourceNotFoundException("Roles Not Found!");
+        }
+    }
+
+    @Override
+    public void initializeUserRoles() {
+        if (roleRepository.findAll().isEmpty()) {
+
+            roleRepository.saveAll(List.of(
+                    Role.builder()
+                            .name("Admin")
+                            .build(),
+                    Role.builder()
+                            .name("Manager")
+                            .build(),
+                    Role.builder()
+                            .name("Cashier")
+                            .build(),
+                    Role.builder()
+                            .name("Store Keeper")
+                            .build()
+
+            ));
         }
     }
 }
