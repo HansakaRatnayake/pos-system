@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UserStatusService {
     List<UserStatusDTO> getAll();
+
+    public void initializeUserStatuses();
 }

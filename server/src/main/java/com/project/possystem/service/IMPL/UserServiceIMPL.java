@@ -89,15 +89,20 @@ public class UserServiceIMPL implements UserService {
     public void initializeAdmin() {
 
         if (userRepository.findByUsername("admin123@gmail.com").isEmpty()) {
-            Optional<Role> selectedRoleName = roleRepository.findByName("Admin");
-            if (selectedRoleName.isEmpty())
-                throw new ResourceNotFoundException("Admin role not found");
+            Role role = roleRepository.findByName("Admin").orElseThrow(() -> new ResourceNotFoundException("Admin role not found"));
+
+//            if (selectedRoleName.isEmpty())
+//                throw new ResourceNotFoundException("Admin role not found");
 
 
             userRepository.save(
                     User.builder()
                             .email("admin123@gmail.com")
                             .password(passwordEncoder.encode("admin123"))
+                            .username("admin123@gmail.com")
+                            .mobile("0111111111")
+                            .role(role)
+                            .userstatus(userStatusRepository.findByName("Active").orElseThrow(() -> new ResourceNotFoundException("Active status not found")))
                             .build()
             );
         }

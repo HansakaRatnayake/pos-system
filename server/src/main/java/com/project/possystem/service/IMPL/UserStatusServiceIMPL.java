@@ -1,6 +1,7 @@
 package com.project.possystem.service.IMPL;
 
 import com.project.possystem.dto.UserStatusDTO;
+import com.project.possystem.entity.Role;
 import com.project.possystem.entity.Userstatus;
 import com.project.possystem.exception.ResourceNotFoundException;
 import com.project.possystem.repository.UserStatusRepository;
@@ -25,6 +26,21 @@ public class UserStatusServiceIMPL implements UserStatusService {
             return objectMapper.userStatusListToDtoList(userStatusList);
         }else{
             throw new ResourceNotFoundException("UserStatuses Not Found!");
+        }
+    }
+
+    @Override
+    public void initializeUserStatuses() {
+        if (userStatusRepository.findAll().isEmpty()) {
+
+            userStatusRepository.saveAll(List.of(
+                    Userstatus.builder()
+                            .name("Active")
+                            .build(),
+                    Userstatus.builder()
+                            .name("Inactive")
+                            .build()
+            ));
         }
     }
 }
