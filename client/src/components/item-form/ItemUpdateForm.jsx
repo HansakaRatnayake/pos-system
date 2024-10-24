@@ -82,17 +82,16 @@ const ItemUpdateForm = ({onCreateFormClose, oldItem}) => {
     const obj = {...item,code,photo:photoPreview?photoPreview.split(',')[1]:''}
     console.log(obj);
     
-
-    // axios.put(`${baseUrl}/items`, obj,{withCredentials: true})
-    //   .then(res => {
-    //     console.log(res);
-    //     toast.success("Item Successfully Saved");
-    //     handleCancel();
-    //     navigate('/items');
-    //   })
-    //   .catch(err => {
-    //     toast.error("Somthig Error.Try again");
-    //   });
+    axios.put(`${baseUrl}/items`, obj,{withCredentials: true})
+      .then(res => {
+        console.log(res);
+        toast.success("Item Successfully Updated!");
+        handleCancel();
+        setTimeout(()=>{window.location.reload();},2000)
+      })
+      .catch(err => {
+        toast.error("Somthig Error.Try again");
+      });
   }
 
   const handleInputFieldChange = (e) => {
@@ -186,7 +185,7 @@ const ItemUpdateForm = ({onCreateFormClose, oldItem}) => {
                   <Button variant="outlined"  color='error' type='button' onClick={handleCancel}>Clear</Button>
                 </Grid>
                 <Grid item xs={6}>
-                <Button variant="outlined" color='primary' type='submit' >Create</Button>
+                <Button variant="outlined" color='primary' type='submit' >Update</Button>
                 </Grid>
                 
               </Grid>

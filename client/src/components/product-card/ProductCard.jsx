@@ -58,12 +58,10 @@ function ProductCard({onItem, isStockCard, isItemCard, item, isRemoveFromCart}) 
     const handleItemDelete = () => {
         const confirm = window.confirm("Are you sure you want to delete?")
             if (confirm) {
-                axios.delete(`${baseURL}/items/${item.id}`)
+                axios.delete(`${baseURL}/items/${item.id}`,{withCredentials: true})
                     .then(() => {
-                        toast.success("User Successfully Deleted!");
+                        toast.success("Item Successfully Deleted!");
                         setTimeout(()=>{window.location.reload();},2000)
-                        
-                    
                     })
                     .catch(err => {
                         console.log(err);
