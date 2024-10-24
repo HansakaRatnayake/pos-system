@@ -33,7 +33,7 @@ public class Item {
     private String code;
 
     @Lob
-    @Column(name = "photo")
+    @Column(name = "photo", columnDefinition = "LONGBLOB")
     private byte[] photo;
 
     @JsonIgnore
