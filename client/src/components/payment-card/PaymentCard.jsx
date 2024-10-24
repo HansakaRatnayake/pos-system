@@ -4,15 +4,14 @@ import "./PaymentCard.css";
 import Grid from '@mui/material/Grid2';
 import Chip from '@mui/material/Chip';
 
-
-
-
 function PaymentCard({item}) {
 
   const [discount, setDiscount] = useState(0);
   const [price, setPrice] = useState(0);
   const [orderItem, setOrderItem] = useState([]);
 
+  console.log(item);
+  
 
   
     useEffect(() => {
@@ -25,7 +24,7 @@ function PaymentCard({item}) {
   
       orderItem.forEach((itm) => {
         totalDiscount += itm.discount;
-        totalPrice += itm.price;
+        totalPrice += itm.price * itm.qty;
       });
   
       setDiscount(totalDiscount);

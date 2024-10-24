@@ -174,7 +174,7 @@ const Stock = () => {
               <PaymentCard item={cart}/>
             </Grid>
             <Grid size={12} className="proceed-btn-outer">
-              <span className='place-order-btn'>Place Order</span>
+              {/* <span className='place-order-btn'>Place Order</span> */}
             </Grid>
           </Grid>
         </Grid>

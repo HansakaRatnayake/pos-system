@@ -25,6 +25,7 @@ import ItemAddForm from '../../components/item-form/ItemAddForm';
 import axios from 'axios';
 import RandomCodeGenerator from '../../utils/RandomCodeGenataror';
 import { UserContext } from '../../hooks/UserContext';
+import toast from 'react-hot-toast';
 
 
 function Item() {
@@ -59,8 +60,7 @@ function Item() {
 
   const handleSearch = (event) => {
     setSearch(event.target.value); 
-    console.log(search);
-    
+      
     
     // axios.get(`${baseURL}/users?name=${search}`, { withCredentials: true }).then(res => {
     //   console.log(res.data);
@@ -104,14 +104,12 @@ function Item() {
 
   const fetchItemData = () => {
     axios.get(`${baseURL}/items`,{withCredentials: true}).then(res => {
-      console.log(res.data);
       setItemlist(res.data); 
     }).catch(err => console.log("Items fetching error : "+ err));
   }
 
   const fetchCategoryData = () => {
     axios.get(`${baseURL}/categories`,{withCredentials: true}).then(res => {
-      console.log(res.data);
       setCategories(res.data); 
     }).catch(err => console.log("Categories fetching error : "+ err));
   }
@@ -126,6 +124,41 @@ function Item() {
     fetchItemData();
     fetchCategoryData();
   }, []);
+
+  const handleOrder = () =>{
+    const obj = convertToTransactionFormat(cart);
+
+    console.log(obj);
+    
+
+    axios.post(`${baseURL}/transactions`, obj, { withCredentials: true })
+    .then(res => {
+      console.log(res);
+      toast.success("Order Successfully Added!");
+      setTimeout(() => { window.location.reload(); }, 2000)
+    })
+    .catch(err => {
+      toast.error("Something Error.Try again");
+    });
+
+  }
+
+  const convertToTransactionFormat = (items) => {
+    return {
+      date: new Date().toISOString().slice(0, 10), // current date in 'YYYY-MM-DD' format
+      grandtotal: items.reduce((total, item) => total + (item.price * item.qty), 0).toFixed(2), // Calculate grand total
+      user: {
+        id: 1, // Assuming the user ID is known
+      },
+      transactionitems: items.map((item) => ({
+        item: {
+          id: item.id, // Use the `id` of the item
+        },
+        quentity: item.qty, // `qty` represents quantity in the object
+        linetotal: (item.price * item.qty).toFixed(2), // Calculate line total
+      })),
+    };
+  };
 
 
   return (
@@ -220,7 +253,7 @@ function Item() {
               <PaymentCard item={cart}/>
             </Grid>
             <Grid size={12} className="proceed-btn-outer">
-              <span className='place-order-btn'>Place Order</span>
+              <span onClick={handleOrder} className='place-order-btn'>Place Order</span> 
             </Grid>
           </Grid>
         </Grid>

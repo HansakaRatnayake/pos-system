@@ -21,7 +21,7 @@ function OrderCard({cartItem, onOrderRemove}) {
             </Grid>
             <Grid size={6} className="detail-outer">
                 <span>{cartItem.name}</span>
-                <p>(${cartItem.price}) * {cartItem.qty}</p> 
+                <p>(${cartItem.price}) * {cartItem.qty}</p>  
             </Grid>
             <Grid size={3} className="option-outer">
                 <div className='delete-icon-outer' onClick={handleRemoveFromCart}><DeleteOutlinedIcon className='delete-icon'/></div>

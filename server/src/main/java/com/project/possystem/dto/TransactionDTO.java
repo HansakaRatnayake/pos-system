@@ -1,5 +1,6 @@
 package com.project.possystem.dto;
 
+import com.project.possystem.entity.Transactionitem;
 import com.project.possystem.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,4 +21,5 @@ public class TransactionDTO {
     private LocalDate date;
     private BigDecimal grandtotal;
     private User user;
+    private Set<Transactionitem> transactionitems;
 }
