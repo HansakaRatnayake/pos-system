@@ -22,7 +22,9 @@ const  SignUp = () => {
     password:'',
     email:'',
     mobile:'',
-    role:''
+    role:{
+      id:1
+    }
   });
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useState({
@@ -123,7 +125,7 @@ const  SignUp = () => {
                               onChange={handleTextFieldChange}
                             />
 
-                            <TextField
+                            {/* <TextField
                               required
                               select
                               label="select role"
@@ -132,7 +134,7 @@ const  SignUp = () => {
                               margin="normal"
                               name='role'
                               onChange={handleTextFieldChange}
-                            /> 
+                            />  */}
 
                            
                             

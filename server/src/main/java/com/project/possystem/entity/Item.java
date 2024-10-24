@@ -44,4 +44,7 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private Set<Transactionitem> transactionitems = new LinkedHashSet<>();
 
+    @Column(name = "poprice", precision = 10, scale = 2)
+    private BigDecimal poprice;
+
 }
