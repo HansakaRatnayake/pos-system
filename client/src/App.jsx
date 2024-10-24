@@ -4,6 +4,7 @@ import './App.css';
 import Dashboard from './screens/dashboard/Dashboard';
 import Item from './screens/item/Item';
 import Stock from './screens/stock/Stock';
+import Register from './screens/register/register';
 import Category from './screens/category/Category';
 import Checkout from './screens/checkout/Checkout';
 import NavBar from './components/navbar/NavBar';
@@ -12,6 +13,7 @@ import SignUp from './screens/signup/SignUp';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { UserProvider } from './hooks/UserContext';
+import { Toaster } from "react-hot-toast";
 
 function MainApp() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -58,6 +60,7 @@ function MainApp() {
               <Route path='/category' element={<Category />} />
               <Route path='/stock' element={<Stock />} />
               <Route path='/checkout' element={<Checkout />} />
+              <Route path='/register' element={<Register />} />
             </>
           )}
         </Routes>
@@ -69,6 +72,7 @@ function MainApp() {
 function App() {
   return (
     <UserProvider>
+      <Toaster position="top-right" />
       <Router>
         <MainApp />
       </Router>

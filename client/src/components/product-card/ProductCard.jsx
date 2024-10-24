@@ -85,6 +85,11 @@ function ProductCard({ onItem, isStockCard, isItemCard, item, isRemoveFromCart }
 
     const handleAddToCart = () => {
         setIsItemOrder(!isItemOrder);
+        handleQtyAdd();
+    }
+
+    const handleAddToStock = () => {
+        setIsItemOrder(!isItemOrder);
         //handleQtyAdd();
         // setCartItem({...item, qty});
 
@@ -269,7 +274,7 @@ function ProductCard({ onItem, isStockCard, isItemCard, item, isRemoveFromCart }
                                             label={<span className='btn-cart-outer'><span>Add To Stock</span></span>}
                                             color='success'
                                             clickable
-                                            onClick={handleAddToCart}
+                                            onClick={handleAddToStock}
                                             sx={{ width: "100%" }}
                                         />
 

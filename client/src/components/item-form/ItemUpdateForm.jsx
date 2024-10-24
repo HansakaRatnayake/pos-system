@@ -48,10 +48,6 @@ const ItemUpdateForm = ({ onCreateFormClose, oldItem }) => {
     })
   }, [oldItem])
 
-console.log(item);
-
-
-
   useEffect(() => {
 
     const fetchCategoryData = () => {
@@ -120,7 +116,7 @@ console.log(item);
 
   return (
     <div>
-      <DialogTitle>Add New Item</DialogTitle>
+      <DialogTitle>Update Item</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={1} className="mt-2">
