@@ -2,6 +2,7 @@ import { Box, Button, Dialog, Grid, Grid2, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import TableComponent from '../../components/tablecomponent/TableComponent';
+import './Transaction.css';
 
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -12,9 +13,9 @@ import UserAddForm from '../../components/user-form/UserAddForm';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
-const Register = () => {
+const Transaction = () => {
 
-  const [users, setUsers] = useState([]);
+  const [transaction, setTransaction] = useState([]);
   const {user} = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState('');
@@ -32,55 +33,54 @@ const Register = () => {
   }
 
   const handleSearch = (event) => {
-    setSearch(event.target.value); 
+    // setSearch(event.target.value); 
     
-    axios.get(`${baseURL}/users?username=${search}`, { withCredentials: true }).then(res => {
-      console.log(res.data);
-      setUsers(res.data);
-    }).catch(err => console.log("Items fetching error : " + err));
+    // axios.get(`${baseURL}/transactions?username=${search}`, { withCredentials: true }).then(res => {
+    //   console.log(res.data);
+    //   setTransaction(res.data);
+    // }).catch(err => console.log("Items fetching error : " + err));
     
   }
 
   useEffect(() => {
-    axios.get(`${baseURL}/users`, { withCredentials: true }).then(res => {
+    axios.get(`${baseURL}/transactions`, { withCredentials: true }).then(res => {
       console.log(res.data);
-      setUsers(res.data);
+      setTransaction(res.data);
     }).catch(err => console.log("Items fetching error : " + err));
   }, []);
 
-  const columns = ['Username', 'Mobile', 'Email', 'UserStatus', 'Role', 'Action'];
-  const data = users;
+  const columns = ['#Id', 'ItemCode', 'User', 'Date', 'Total'];
+  // const data = users;
 
   return (
-    <Grid2 container spacing={2}> 
+    <Grid2 container display={'flex'}>
 
-      <Grid2 size={12} sx={{marginTop:"3rem"}} className={"menu-item-head"}>
-      
-
+      {/* <Grid2 size={12} sx={{marginTop:"3rem"}} className={"menu-item-head"} >
+        
+        
+         
           <TextField
-            label={<span><SearchOutlinedIcon className='search-icon' /> Search By Username</span>}
+            label={<span><SearchOutlinedIcon className='search-icon' /> Search</span>}
             className='txtsearch'
             value={search}
             onChange={handleSearch}
             type="text"
             size="small"
           />
-          {user.role.name === "Admin" || user.role.name === "Manager" ? (
-            <>
-              <Button variant="contained" color='primary' startIcon={<AddCircleOutlinedIcon />} onClick={handleClickOpen}>New User</Button>
-            </>
-          ) : (
-            <></>
-          )}
 
-      
-      </Grid2>
+       
+      </Grid2> */}
 
-      <Box sx={{ width: '100%'}}>
-          <Grid2 item xs={12} overflow={'auto'} maxHeight={600}>
-            <TableComponent columns={columns} data={data} />
+      <Grid2 size={12} sx={{marginTop:"3rem"}}>
+        <span >Transaction details</span>
+        <Box sx={{ width: '100%', marginTop: '2rem' }}>
+          <Grid2 container overflow={'auto'} maxHeight={600}>
+            <Grid2 item xs={12}>
+              <TableComponent columns={columns} data={transaction} />
+            </Grid2>
           </Grid2>
-      </Box>
+        </Box>
+      </Grid2>
 
       <Dialog
           open={open}
@@ -94,4 +94,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Transaction

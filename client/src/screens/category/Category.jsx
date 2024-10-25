@@ -8,6 +8,8 @@ import axios from 'axios';
 import Dialog from '@mui/material/Dialog';
 import Grid from '@mui/material/Grid2';
 import CategoryAddForm from '../../components/category-form/CategoryForm';
+import { useContext } from 'react';
+import { UserContext } from '../../hooks/UserContext';
 
 
 
@@ -18,6 +20,8 @@ const Category = () => {
 
    const [categories, setCategories] = useState([]);
    const [open, setOpen] = React.useState(false);
+
+   const {user} = useContext(UserContext);
 
    const handleClickOpen = () => {
      setOpen(true);
@@ -69,7 +73,13 @@ const Category = () => {
           ))}
           
         </Grid>
-        <Button variant='outlined' color='secondary' onClick={handleClickOpen}>Add New Category</Button>
+        {(user && (user.role === 'Admin' || user.role === 'Manager'))?(
+            <>
+             <Button variant='outlined' color='secondary' onClick={handleClickOpen}>Add New Category</Button>
+            </>
+        ):(
+            <></>
+        )}
       </section>
 
       <Dialog

@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { UserProvider } from './hooks/UserContext';
 import { Toaster } from "react-hot-toast";
+import Transaction from './screens/transaction/Transaction';
 
 function MainApp() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -61,6 +62,7 @@ function MainApp() {
               <Route path='/stock' element={<Stock />} />
               <Route path='/checkout' element={<Checkout />} />
               <Route path='/register' element={<Register />} />
+              <Route path='/transactions' element={<Transaction />} />
             </>
           )}
         </Routes>

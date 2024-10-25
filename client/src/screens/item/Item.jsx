@@ -39,6 +39,7 @@ function Item() {
   const [cartItemCount, setCartItemCount] = useState(cart.length);
   const [isRemoveFromCart, setIsRemoveFromCart] = useState(false);
   const [itemlist, setItemlist] = useState([]);
+  const [invoiceNumber, setInvoiceNumber] = useState('');
 
   const [categories, setCategories] = useState([]);
 
@@ -119,6 +120,10 @@ function Item() {
     setCartItemCount(cart.length);
   },[cart]);
 
+  useEffect(()=>{
+    setInvoiceNumber(RandomCodeGenerator());
+  },[itemlist]);
+
 
   useEffect(() => {
     fetchItemData();
@@ -185,17 +190,6 @@ function Item() {
                   ):(
                     <></>
                   )}
-
-              
-               
-                {/* Ensure onClick works for the search button */}
-                {/* <Chip 
-                  label={<SearchOutlinedIcon className='search-icon' />} 
-                  variant="outlined" 
-                  clickable 
-                  onClick={handleSearchBtn} // Correct function
-                /> */}
-                {/* <Chip label={<FilterAltIcon className='filter-icon' />} variant="outlined" clickable /> */}
               </div>
             </Grid>
 
@@ -229,7 +223,7 @@ function Item() {
           <Grid size={12} className={"checkout-outer"} paddingTop={5} paddingLeft={3} paddingRight={3} borderRadius={5} paddingBottom={5}>
             <Grid size={12} className="order-summery-head">
               <span>Order's summary</span>
-              <p>#{RandomCodeGenerator()}</p>
+              <p>#{invoiceNumber}</p>
               <hr className='hr'/>
               <span className='heading-total'>Cart items <span>({cartItemCount})</span></span>
             </Grid>

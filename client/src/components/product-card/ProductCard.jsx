@@ -95,7 +95,7 @@ function ProductCard({ onItem, isStockCard, isItemCard, item, isRemoveFromCart }
 
         console.log(item);
 
-        const obj = {...item, quentity:qty}
+        const obj = {...item, quentity:Number(item.quentity)+Number(qty)}
 
         axios.put(`${baseURL}/items`, obj,{ withCredentials: true })
             .then(res => {

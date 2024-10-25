@@ -42,14 +42,23 @@ function NavBar() {
             </li>
             <li>
               <Link to={'/category'}>Category</Link>
-            </li>
-            <li>
-              <Link to={'/stock'}>Stock</Link>
-            </li>
-            {user && user.role.name === 'Admin' && (
+            </li> 
+            {(user && (user.role === 'Admin' || user.role === 'Manager' || user.role.name === "Stock Keeper" ))?(
               <li>
-                <Link to={'/register'}>Registration</Link>
+                <Link to={'/stock'}>Stock</Link>
               </li>
+        ):(
+            <></>
+        )}
+            {user && user.role.name === 'Admin' && (
+              <>
+                <li>
+                  <Link to={'/register'}>Registration</Link>
+                </li>
+                <li>
+                   <Link to={'/transactions'}>Transactions</Link>
+                </li>
+              </>
             )}
           </ul>
         </div>
