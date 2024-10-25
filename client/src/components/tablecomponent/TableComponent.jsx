@@ -58,41 +58,73 @@ const TableComponent = ({ columns, data }) => {
                         }
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {data.map((row, i) => (
-                        <TableRow
-                            key={i}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row" sx={{ width: '10px' }}>
-                                {row['username']}
-                            </TableCell>
-                            <TableCell component="th" scope="row" sx={{ width: '10px' }}>
-                                {row['mobile']}
-                            </TableCell>
-                            <TableCell component="th" scope="row" sx={{ width: '10px' }}>
-                                {row['email']}
-                            </TableCell>
-                            <TableCell component="th" scope="row" sx={{ width: '10px' }}>
-                                {row['userstatus']['name']}
-                            </TableCell>
-                            <TableCell component="th" scope="row" sx={{ width: '10px' }}>
-                                {row['role']['name']}
-                            </TableCell>
-                            <TableCell component="th" scope="row" sx={{ width: '10px' }}>
-                                <div style={{display: 'flex', gap: '5px'}}>
-                                <Button variant="contained" color='primary' sx={{backgroundColor:'#dd0000'}} onClick={() => {
-                                    handleDelete(row['id']);
-                                }}>Delete</Button>
-                                <Button variant="contained" color='primary' onClick={() =>{
-                                    handleClickOpen();
-                                    setSelectedUser(row);
-                                }}>Edit</Button>
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
+                {columns && columns[0] === 'Username' && (
+                    <TableBody>
+                        {data.map((row, i) => (
+                            <TableRow
+                                key={i}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {row['username']}
+                                </TableCell>
+                                <TableCell component="th" scope="row" >
+                                    {row['mobile']}
+                                </TableCell>
+                                <TableCell component="th" scope="row" >
+                                    {row['email']}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row['userstatus']['name']}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row['role']['name']}
+                                </TableCell>
+                                <TableCell component="th" scope="row" >
+                                    <div style={{display: 'flex', gap: '5px'}}>
+                                    <Button variant="contained" color='primary' sx={{backgroundColor:'#dd0000'}} onClick={() => {
+                                        handleDelete(row['id']);
+                                    }}>Delete</Button>
+                                    <Button variant="contained" color='primary' onClick={() =>{
+                                        handleClickOpen();
+                                        setSelectedUser(row);
+                                    }}>Edit</Button>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                )}
+                {columns && columns[0] === '#Id' && (
+                    <TableBody>
+                        {data.map((row, i) => (
+                            <TableRow
+                                key={i}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {row['id']}
+                                </TableCell>
+                                <TableCell component="th" scope="row" >
+                                    {row['transactionitems'].map((t)=>(
+                                        <p>t.item.code</p>
+                                    ))}
+                                </TableCell>
+                                <TableCell component="th" scope="row" >
+                                    {row['user']['username']}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row['date']}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row['grandtotal']}
+                                </TableCell>
+                               
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                )}
+                
             </Table>
         </TableContainer>
         <Dialog

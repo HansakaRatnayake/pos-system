@@ -27,8 +27,9 @@ const Stock = () => {
   const [cartItemCount, setCartItemCount] = useState(cart.length);
   const [isRemoveFromCart, setIsRemoveFromCart] = useState(false);
   const [itemlist, setItemlist] = useState([]);
-
   const [categories, setCategories] = useState([]);
+  const [invoiceNumber, setInvoiceNumber] = useState('');
+
   
   const handleSearchBtn = () => {
     setIsClickSearchBtn(!isClickSearchBtn);
@@ -85,6 +86,10 @@ const Stock = () => {
     setCart([...selectedItemArr]);
     setIsRemoveFromCart(!isRemoveFromCart);
   }
+
+  useEffect(()=>{
+    setInvoiceNumber(RandomCodeGenerator());
+  },[itemlist]);
 
 
   useEffect(()=>{
@@ -150,7 +155,7 @@ const Stock = () => {
           <Grid size={12} className={"checkout-outer"} paddingTop={5} paddingLeft={3} paddingRight={3} borderRadius={5} paddingBottom={5}>
             <Grid size={12} className="order-summery-head">
               <span>Purchase Order summary</span>
-              <p>#{RandomCodeGenerator()}</p>
+              <p>#{invoiceNumber}</p>
               <hr className='hr'/>
               <span className='heading-total'>Cart items <span>({cartItemCount})</span></span>
             </Grid>
